@@ -1,5 +1,6 @@
 package com.example.user.OpusRimor;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.regex.*;
+
 
 
 public class Main2Activity extends AppCompatActivity {
@@ -95,7 +97,9 @@ public class Main2Activity extends AppCompatActivity {
                 Thread.sleep(250);
             }
             catch (InterruptedException e){}
+
         // sends progress to log
+
             Log.e("Step", "Background Progress: "+ (Step[0]));
         }
 
@@ -110,9 +114,10 @@ public class Main2Activity extends AppCompatActivity {
             }
             catch (InterruptedException e){}
             // passes selected jobs to activity 3
-            Intent passJobList = new Intent(getBaseContext(),Main3Activity.class);
+            Intent passJobList = new Intent(Main2Activity.this,Main3Activity.class);
             // passes alljobs array list
             passJobList.putStringArrayListExtra("ALLJOBS", Final);
+            Main2Activity.this.finish();
             startActivity(passJobList);
         }
 

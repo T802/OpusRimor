@@ -7,15 +7,31 @@
     android:layout_height="match_parent"
     android:background="@android:color/darker_gray">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="307dp"
+        android:layout_height="96dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.387"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.017"
+        app:srcCompat="@drawable/temp_title" />
+
     <TextView
         android:id="@+id/UpdateBox"
         android:layout_width="235dp"
         android:layout_height="57dp"
-        android:layout_marginTop="208dp"
-        android:textSize="18sp"
+        android:layout_marginTop="180dp"
+        android:fontFamily="sans-serif"
         android:gravity="center"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -45,13 +45,12 @@ public class Main3Activity extends AppCompatActivity {
                 JobPost PostList2 = jobList2.get(position);
 
                 String JobBody;
-                String titlePick;
                 JobBody = PostList2.getDesc();
-                titlePick = PostList2.getTitle();
                 if(JobBody.length() != 0) {
                     Intent DescDisplay = new Intent(getBaseContext(), Main4Activity.class);
                     DescDisplay.putExtra("BodyOfJob", JobBody);
-                    DescDisplay.putExtra("TitlePick", titlePick);
+                    DescDisplay.putExtra("TitlePick", PostList2.getTitle());
+                    DescDisplay.putExtra("origLink", PostList2.getJLink());
                     startActivity(DescDisplay);
                 }else{
                     JobBody = "Sorry bub";
@@ -88,7 +87,7 @@ public class Main3Activity extends AppCompatActivity {
             }else {
 
                 for (int i = 0; i < AllJobs.size(); i = i + 5) {
-                                            //Job title       Site Source         Post Date
+                                            //Job title       Site Source         Post Date         Link                Desc
                     JobPost jobpost = new JobPost(AllJPosts[i], AllJPosts[i + 1], AllJPosts[i + 2],AllJPosts[i + 3], AllJPosts[i + 4]);
                     jobList2.add(jobpost);
                 }
