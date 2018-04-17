@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Opus Rimor</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="phd">PhD</string>
+    <string name="m_sc">M.Sc.</string>
+    <string name="b_sc">B.Sc.</string>
+    <string name="senior">Senior</string>
+    <string name="associate">Associate</string>
+    <string name="chooseDegree">Choose your degree level(s):</string>
+    <string name="chooseExp">Choose your experience level(s):</string>
+    <string name="chooseSkill">Choose your Skill set(s):</string>
+    <string name="searchButton">Search</string>
+    <string name="Java">Java</string>
+    <string name="Python">Python</string>
+    <string name="R">R </string>
+    <string name="SQL">SQL</string>
+    <string name="searchResult">Results</string>
+    <string name="resultsWelcome">Here is your top result:</string>
+    <string name="title_activity_main3">Main3Activity</string>
+</resources>
