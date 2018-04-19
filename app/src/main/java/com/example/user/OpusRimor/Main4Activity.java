@@ -9,11 +9,16 @@ import android.view.View;
 import android.text.method.ScrollingMovementMethod;
 import android.widget.TextView;
 
-
+/**
+ * Displays job description content
+ */
 public class Main4Activity extends AppCompatActivity {
-
-
-
+    /**
+     *
+     * @param savedInstanceState
+     *
+     * Creates job content to display to page
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +40,12 @@ public class Main4Activity extends AppCompatActivity {
         Title.setText(JobTitle);
     }
 
+    /**
+     *
+     * @param view
+     *
+     * Allows user to click job title to redirect to actual job posting to its respective site
+     */
         public void VisitSite(android.view.View view){
             Intent DescDisplay = getIntent();
             String JobLink = DescDisplay.getStringExtra("origLink");

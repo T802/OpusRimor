@@ -8,10 +8,23 @@ import android.widget.EditText;
 
 import java.util.ArrayList;
 
+/**
+ * @author Leslie
+ * @author Trevor
+ * @author Sierra
+ *
+ * Initial splash screen that displays checkboxes needed to create an arraylist of keywords
+ */
 public class MainActivity extends AppCompatActivity {
     //creates array list to store selected search terms
     ArrayList<String> queryTerms = new ArrayList<String>();
-    // method run when check boxes are selected/deselected
+
+    /**
+     *
+     * @param view
+     *
+     * Method run when check boxes are selected/deselected
+     */
     public void onCheckboxClicked(android.view.View view) {
 
         // Checks if checkbox is checked
@@ -47,12 +60,12 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (!checked){
                     queryTerms.remove("Masters");
-                queryTerms.remove("Master's");
-                queryTerms.remove("M.Sc");
-                queryTerms.remove("MD");
-                queryTerms.remove("M.D");
-                queryTerms.remove("MSc");
-        } break;
+                    queryTerms.remove("Master's");
+                    queryTerms.remove("M.Sc");
+                    queryTerms.remove("MD");
+                    queryTerms.remove("M.D");
+                    queryTerms.remove("MSc");
+                } break;
             // BSc
             case R.id.checkBoxBSc:
                 if (checked) {
@@ -62,15 +75,16 @@ public class MainActivity extends AppCompatActivity {
                     queryTerms.add("undergrad");
                     queryTerms.add("BA");
                     queryTerms.add("BS");
-                }if (!checked) {
-                queryTerms.remove("B.Sc.");
-                queryTerms.remove("BSc");
-                queryTerms.remove("Bachelor");
-                queryTerms.remove("undergrad");
-                queryTerms.remove("BA");
-                queryTerms.remove("BS");
-            }break;
                 }
+                if (!checked) {
+                    queryTerms.remove("B.Sc.");
+                    queryTerms.remove("BSc");
+                    queryTerms.remove("Bachelor");
+                    queryTerms.remove("undergrad");
+                    queryTerms.remove("BA");
+                    queryTerms.remove("BS");
+                }break;
+        }
         // experience lvl
             //Senior
         switch(view.getId()) {
@@ -128,12 +142,22 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     *
+     * @param savedInstanceState Initializes xml for MainActivity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     } // starts xml for main activity
 
+    /**
+     *
+     * @param view
+     *
+     * Calls next activity when search button is clicked and passes the query list
+     */
     public void sendSearch(View view){
         // on search button click, starts new intent
         // passes generated array list for query terms

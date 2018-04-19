@@ -30,12 +30,21 @@ import java.util.List;
 import java.util.regex.*;
 
 
-
+/**
+ * Displays loading screen while background tasks run
+ *
+ * Pulls information from websites corresponding with the keywords list
+ */
 public class Main2Activity extends AppCompatActivity {
 
     TextView Update;
 
-
+    /**
+     *
+     * @param savedInstanceState Initializing xml
+     *
+     * Initializes background/async tasks
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -53,41 +62,57 @@ public class Main2Activity extends AppCompatActivity {
     }
 
 
-
-
-
+    /**
+     * Implements methods in the async tasks
+     */
     private class Web_Grab extends AsyncTask<ArrayList<String>, String, ArrayList<String>> {
     // grabs html from specific webpages and parses the data
+
+        /**
+         *
+         * @param queryTerms List of terms selected by user
+         * @return List of all qualified jobs
+         */
         @Override
         protected ArrayList<String> doInBackground(ArrayList<String>... queryTerms){
-        //
 
+            //Accepts query terms
+            //queryTerms is an array of array lists
             ArrayList<String> Terms = queryTerms[0];
 
-            onProgressUpdate("Starting to collect job postings");
             // updates textview on activtiy_main2
-            ArrayList<String> IndJobs = IndeedGrab(Terms);
+            onProgressUpdate("Starting to collect job postings");
+
             //selects indeed jobs that match selected terms
+            ArrayList<String> IndJobs = IndeedGrab(Terms);
 
-            ArrayList<String> MonJobs = MonsterGrab(Terms);
             // selects monster jobs that match selected terms
+            ArrayList<String> MonJobs = MonsterGrab(Terms);
 
-            ArrayList<String> AllJobs = new ArrayList<String>();
             // combines the results of the indeed and monster search
-           for(int i=0; i< IndJobs.size(); i++){
+            ArrayList<String> AllJobs = new ArrayList<String>();
+
+            //Combine all jobs
+            for(int i=0; i< IndJobs.size(); i++){
                 AllJobs.add(IndJobs.get(i));
             }
-           for(int i=0; i < MonJobs.size();i++) {
+            for(int i=0; i < MonJobs.size();i++) {
                AllJobs.add(MonJobs.get(i));
-           }
+            }
 
 
 
             onProgressUpdate("Jobs Compiled");
 
             return AllJobs;
+        }
 
-            }
+        /**
+         *
+         * @param Step Updates the update box in xml
+         *
+         * Updates the loading screen and allows the phone to keep up with tasks
+         */
         @Override
         protected void onProgressUpdate(String... Step){
         // updates text view and log as doInBackground progresses
@@ -104,7 +129,12 @@ public class Main2Activity extends AppCompatActivity {
         }
 
 
-
+        /**
+         *
+         * @param Final List of all qualified jobs
+         *
+         * Calls next activity to display the list of qualified jobs
+         */
         protected void onPostExecute(ArrayList<String> Final){
         // final update
             Update.setText("Creating final list");
@@ -122,7 +152,13 @@ public class Main2Activity extends AppCompatActivity {
         }
 
 
-
+        /**
+         *
+         * @param queryTerms List of query terms
+         * @return List of all information needed from monster to create object
+         *
+         * Parses out all information from monster needed to create viewable list of qualified jobs
+         */
         public ArrayList<String> MonsterGrab(ArrayList < String > queryTerms) {
             // grabs and parses Monster jobs
             String page = "https://www.monster.ca/jobs/search/?q=Bioinformatics";
@@ -178,7 +214,7 @@ public class Main2Activity extends AppCompatActivity {
             //Push all links into an array
             ArrayList<String> MonJobPDate = new ArrayList<String>();
 
-            //While loop to grab just the titles in the web page
+            //While loop to grab just the time in the web page
             while (m.find()) {
                 MonJobPDate.add(m.group(2));
             }
@@ -218,6 +254,7 @@ public class Main2Activity extends AppCompatActivity {
                 QualMonster.add(MonBodies.get(MonQualified.get(i)));        // Description body
             }
 
+            //Display progress
             publishProgress("Finished compiling Monster Jobs");
 
             //returns the final array list
@@ -225,6 +262,13 @@ public class Main2Activity extends AppCompatActivity {
 
         }
 
+        /**
+         *
+         * @param queryTerms List of query terms
+         * @return List of all information needed from indeed to create object
+         *
+         * Parses out all information from indeed needed to create viewable list of qualified jobs
+         */
         public ArrayList<String> IndeedGrab(ArrayList < String > queryTerms) {
             // obtains indeed web pages, parses data, and checks for qualified job postings
             // returns information for jobs that match selected terms
@@ -312,6 +356,13 @@ public class Main2Activity extends AppCompatActivity {
             return QualIndeed;
         }
 
+        /**
+         *
+         * @param page Link of website
+         * @return Entire webpage as string
+         *
+         * Grabs all html source code from link
+         */
         private String getWebpage(String page){
             // method for selecting all web pages
 
@@ -345,8 +396,14 @@ public class Main2Activity extends AppCompatActivity {
             return webpage;
         }
 
+        /**
+         *
+         * @param webPage2 Entire source code of indeed webpage
+         * @return Only the job description from indeed webpage
+         *
+         * Receives the HTML source code for the job listing and gets the job description
+         */
         private String IndeedDesc(String webPage2) {
-            //This method receives the HTML source code for the job listing and gets the job description
 
             //Remove all new lines
             Pattern p = Pattern.compile("[\n]");
@@ -364,6 +421,14 @@ public class Main2Activity extends AppCompatActivity {
             }
             return body;
         }
+
+        /**
+         *
+         * @param webPage2 Entire source code of monster webpage
+         * @return Only the job description from monster webpage
+         *
+         * Receives the HTML source code for the job listing and gets the job description
+         */
         private String MonsterDesc(String webPage2) {
             // selects the description from the monster job post page
             // Remove all new lines
@@ -385,6 +450,12 @@ public class Main2Activity extends AppCompatActivity {
             return body;
         }
 
+        /**
+         *
+         * @param body Job description of webpage
+         * @param queryTerms List of user selected query terms
+         * @return Job description with query terms highlighted in green
+         */
         private String parseJob(String body, ArrayList<String> queryTerms){
             // Accepts array lists with query terms and job body html
             // uses regex to replace unwanted HTML and Highlight Query Terms
@@ -412,7 +483,7 @@ public class Main2Activity extends AppCompatActivity {
             //loop to replace all matched terms in the description green
             for(int i=0; i < queryTerms.size(); i++){
                 String tempRegex;
-                Pattern p13 = Pattern.compile("the");
+                Pattern p13 = Pattern.compile("the"); //If all terms selected
                 Matcher M = p13.matcher(queryTerms.get(i));
                 if(!M.matches()){
                     //changes wildcard character for java escaped alternative
@@ -427,12 +498,18 @@ public class Main2Activity extends AppCompatActivity {
             return body;
         }
 
-
+        /**
+         *
+         * @param bodies Job description
+         * @param QLevel User selected query terms, Changed the name. GOTCHA ;)
+         * @return Position of qualified links in list
+         *
+         * Picks jobs which contain the keywords specified by the user
+         * Accepts the array lists containing the job description and the qualification terms.
+         * The job bodies are looped through to check for a match to any qualification term.
+         * If there is a match, the position in the description array list if added to a new array list and returned.
+         */
         private ArrayList<Integer> chooseLinks(ArrayList<String> bodies, ArrayList<String> QLevel){
-            //Picks web links which contain the keywords specified by the user
-            // Accepts the array lists containing the job description and the qualification terms.
-            // The job bodies are looped through to check for a regex match to any qualification term.
-            // If there is a match, the position in the description array list if added to a new array list and returned.
 
             //ArrayList<String> qualified = new ArrayList<String>();
             ArrayList<Integer> MatchPos = new ArrayList<Integer>();

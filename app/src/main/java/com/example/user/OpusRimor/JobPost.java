@@ -1,12 +1,27 @@
 package com.example.user.OpusRimor;
 
-
+/**
+ * JobPost object
+ */
 public class JobPost {
     private String title, site, PostDate, JLink, Desc;
 
+    /**
+     * Default constructor
+     */
     public JobPost() {
     }
-    // creates an object that contains all the information collected for a particular job post
+
+    /**
+     *
+     * @param title
+     * @param site
+     * @param PostDate
+     * @param JLink
+     * @param Desc
+     *
+     * Argumentative constructor
+     */
     public JobPost(String title, String site, String PostDate, String JLink, String Desc) {
         this.title = title;
         this.PostDate = PostDate;
@@ -15,37 +30,63 @@ public class JobPost {
         this.Desc = Desc;
     }
 
-    // series of methods to set and obtain specific information on the object
-    public String getTitle() {
-        return title;
-    }
+    /**
+     *
+     * @return Job title
+     */
+    public String getTitle() { return title; }
 
-    public void setTitle(String name) {
-        this.title = name;
-    }
+    /**
+     *
+     * @param name Sets title of job
+     */
+    public void setTitle(String name) { this.title = name; }
 
-    public String getPostDate() {
-        return PostDate;
-    }
+    /**
+     *
+     * @return Date of job posting
+     */
+    public String getPostDate() { return PostDate; }
 
-    public void setPostDate(String PostDate) {
-        this.PostDate = PostDate;
-    }
+    /**
+     *
+     * @param PostDate Sets post date of job
+     */
+    public void setPostDate(String PostDate) { this.PostDate = PostDate; }
 
-    public String getSite() {
-        return site;
-    }
+    /**
+     *
+     * @return Origin of job posting
+     */
+    public String getSite() { return site; }
 
-    public void setSite(String site) {
-        this.site = site;
-    }
+    /**
+     *
+     * @param site Sets origin of job posting
+     */
+    public void setSite(String site) { this.site = site; }
 
+    /**
+     *
+     * @return Link to job posting
+     */
     public String getJLink(){return JLink;}
 
+    /**
+     * Sets link to job posting
+     */
     public void setJLink(){ this.JLink = JLink; }
 
+    /**
+     *
+     * @return Job description
+     */
     public String getDesc() { return Desc; }
 
+    /**
+     *
+     * @param Desc Sets job desription
+     */
     public void setDesc(String Desc) { this.Desc = Desc; }
 
 }

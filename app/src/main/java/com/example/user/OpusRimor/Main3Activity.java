@@ -12,15 +12,23 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Displays job postings that match chosen terms
+ */
 public class Main3Activity extends AppCompatActivity {
 
-    // collects and displays job postings that match chosen terms
     // converts string list into a list of jobPost objects
     // uses a recycler view display objects on XML
     private List<JobPost> jobList2 = new ArrayList<>();
     private RecyclerView recyclerView2;
     private JobPostsAdapter jAdapter2;
 
+    /**
+     *
+     * @param savedInstanceState
+     *
+     * Initializes recycler view
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +37,8 @@ public class Main3Activity extends AppCompatActivity {
         recyclerView2 = (RecyclerView) findViewById(R.id.recycler_view2);
 
         // interface to recycler view
+
+        //Initializes JobPostsAdapter object
         jAdapter2 = new JobPostsAdapter(jobList2);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView2.setLayoutManager(mLayoutManager);
@@ -38,8 +48,16 @@ public class Main3Activity extends AppCompatActivity {
         compileJobs2();
 
 
-        // row click listener
+        //Check which row user has clicked and sends information to next activity
         recyclerView2.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView2, new RecyclerTouchListener.ClickListener() {
+
+            /**
+             *
+             * @param view Row content
+             * @param position Row number
+             *
+             * Passes clicked job and its contents to next activity
+             */
             @Override
             public void onClick(View view, int position) {
                 JobPost PostList2 = jobList2.get(position);
@@ -59,6 +77,12 @@ public class Main3Activity extends AppCompatActivity {
                         startActivity(DescDisplay);
                 }
             }
+
+            /**
+             *
+             * @param view
+             * @param position
+             */
             @Override
             public void onLongClick(View view, int position) {
 
@@ -69,31 +93,34 @@ public class Main3Activity extends AppCompatActivity {
 
     }
 
-        private void compileJobs2(){
+    /**
+     * Generates content for each job posting
+     */
+    private void compileJobs2(){
 
-            Intent passJobList = getIntent();
-            ArrayList<String> AllJobs = passJobList.getStringArrayListExtra("ALLJOBS");
+        Intent passJobList = getIntent();
+        ArrayList<String> AllJobs = passJobList.getStringArrayListExtra("ALLJOBS");
 
 
-            String[] AllJPosts = new String[AllJobs.size()];
+        String[] AllJPosts = new String[AllJobs.size()];
 
-            for(int i=0; i < AllJobs.size(); i++){
-                AllJPosts[i] = AllJobs.get(i);
-            }
-
-            if(AllJobs.size() == 0){
-                JobPost jobPost = new JobPost("Didn't work", "Site", "now", "BackLink", "BackDesc");
-                jobList2.add(jobPost);
-            }else {
-
-                for (int i = 0; i < AllJobs.size(); i = i + 5) {
-                                            //Job title       Site Source         Post Date         Link                Desc
-                    JobPost jobpost = new JobPost(AllJPosts[i], AllJPosts[i + 1], AllJPosts[i + 2],AllJPosts[i + 3], AllJPosts[i + 4]);
-                    jobList2.add(jobpost);
-                }
-            }
-            jAdapter2.notifyDataSetChanged();
+        for(int i=0; i < AllJobs.size(); i++){
+            AllJPosts[i] = AllJobs.get(i);
         }
+
+        if(AllJobs.size() == 0){
+            JobPost jobPost = new JobPost("Didn't work", "Site", "now", "BackLink", "BackDesc");
+            jobList2.add(jobPost);
+        }else {
+
+            for (int i = 0; i < AllJobs.size(); i = i + 5) {
+                                        //Job title       Site Source         Post Date         Link                Desc
+                JobPost jobpost = new JobPost(AllJPosts[i], AllJPosts[i + 1], AllJPosts[i + 2],AllJPosts[i + 3], AllJPosts[i + 4]);
+                jobList2.add(jobpost);
+            }
+        }
+        jAdapter2.notifyDataSetChanged();
+    }
 
 
 }
